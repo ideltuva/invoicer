@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 
-import static com.api.invoicer.mapper.excel.ExcelMapper.mapToInvoice;
+import static com.api.invoicer.mapper.excel.ExcelMapper.mapToExcelInvoice;
 import static com.api.invoicer.mapper.obl.OblMapper.mapToObl;
 import static com.api.invoicer.util.ExcelUtil.getDataMap;
 
@@ -17,7 +17,7 @@ import static com.api.invoicer.util.ExcelUtil.getDataMap;
 @Service
 public class ConvertService {
     public void generateObl21() throws IOException {
-        Invoice excelInvoice = mapToInvoice(getDataMap());
+        Invoice excelInvoice = mapToExcelInvoice(getDataMap());
         InvoiceType invoice = mapToObl(excelInvoice);
         UBL21Marshaller.invoice()
                 .write(invoice, new File("target/dummy-invoice.xml"));
@@ -25,5 +25,10 @@ public class ConvertService {
 
     public InvoiceType getObl21(Invoice excel) {
         return mapToObl(excel);
+    }
+
+    public void generateObl21(InvoiceType invoice, String fileName) {
+        UBL21Marshaller.invoice()
+                .write(invoice, new File(String.format("xml-files/%s.xml", fileName)));
     }
 }

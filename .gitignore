@@ -35,3 +35,6 @@ build/
 ### Excel ###
 *.xlsx
 *.xlsm
+
+### File generation ###
+/xml-files

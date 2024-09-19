@@ -133,7 +133,7 @@ public class ExcelMapper {
         return getLocaleDate(excelMap.get(getDueDatePosition(excelMap)).get(5));
     }
 
-    public static Invoice mapToInvoice(Map<Integer, List<String>> excelMap) {
+    public static Invoice mapToExcelInvoice(Map<Integer, List<String>> excelMap) {
         return Invoice.builder()
                 .serialNumber(mapToSerialNumber(excelMap))
                 .orderNumber(mapToOrderNumber(excelMap))
