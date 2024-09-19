@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.api.invoicer.constant.FileConstant.EXCEL_SUFFIX;
+import static com.api.invoicer.constant.FileConstant.FILE_PATH;
+
 @Slf4j
 @Service
 public class FileService {
-    private final String EXCEL_SUFFIX = ".xlsx";
-    private final File currentDirectory = new File(".");
+    private final File currentDirectory = new File(FILE_PATH);
     public List<String> getFileNames() {
         File[] files = currentDirectory.listFiles((dir, name) -> name.endsWith(EXCEL_SUFFIX));
         if (ArrayUtils.isNotEmpty(files)) return Arrays.stream(files).map(File::getName).collect(Collectors.toList());

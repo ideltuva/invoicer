@@ -45,7 +45,7 @@ public class ExcelService {
     private static Workbook getExcelWorkbook(String fileName) {
         try {
             log.info("Getting an excel workbook");
-            FileInputStream file = new FileInputStream(ResourceUtils.getFile("classpath:" + fileName));
+            FileInputStream file = new FileInputStream(fileName);
             log.info("Excel accessed");
             return new XSSFWorkbook(file);
         } catch(IOException e) {
