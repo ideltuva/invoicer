@@ -1,4 +1,4 @@
-package com.api.invoicer.model.excel;
+package com.api.invoicer.model.excelDto;
 
 import lombok.Builder;
 

@@ -3,13 +3,16 @@ package com.api.invoicer.facade;
 import com.api.invoicer.service.ConvertService;
 import com.api.invoicer.service.ExcelService;
 import com.api.invoicer.service.FileService;
-import com.api.invoicer.model.excel.Invoice;
+import com.api.invoicer.model.excelDto.Invoice;
 import lombok.extern.slf4j.Slf4j;
+import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.UUIDType;
 import oasis.names.specification.ubl.schema.xsd.invoice_21.InvoiceType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 import static com.api.invoicer.mapper.excel.ExcelMapper.mapToExcelInvoice;
 import static com.api.invoicer.mapper.obl.OblMapper.mapToObl;
@@ -36,6 +39,14 @@ public class FileHandlerFacade {
             Invoice excelInvoice = mapToExcelInvoice(excelDataMap);
             InvoiceType invoiceObl = mapToObl(excelInvoice);
             convertService.generateObl21(invoiceObl, trimFileSuffix(fileName));
+            log.info("{}.xml generated: {}, ", fileName, getUUID(invoiceObl));
         });
+    }
+
+    private String getUUID(InvoiceType invoiceType) {
+        return Optional.of(invoiceType)
+                .map(InvoiceType::getUUID)
+                .map(UUIDType::getValue)
+                .orElse("");
     }
 }

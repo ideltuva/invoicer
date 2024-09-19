@@ -1,6 +1,6 @@
 package com.api.invoicer.mapper.obl;
 
-import com.api.invoicer.model.excel.*;
+import com.api.invoicer.model.excelDto.*;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.*;
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.*;
 import oasis.names.specification.ubl.schema.xsd.invoice_21.InvoiceType;

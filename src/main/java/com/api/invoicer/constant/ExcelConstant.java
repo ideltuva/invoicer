@@ -1,10 +1,10 @@
 package com.api.invoicer.constant;
 
-import com.api.invoicer.model.excel.ExcelEnum;
+import com.api.invoicer.model.excelDto.ExcelEnum;
 
 import java.util.Map;
 
-import static com.api.invoicer.model.excel.ExcelEnum.*;
+import static com.api.invoicer.model.excelDto.ExcelEnum.*;
 
 public class ExcelConstant {
     public final static String ADDITIONAL_INFO = "Papildoma informacija";

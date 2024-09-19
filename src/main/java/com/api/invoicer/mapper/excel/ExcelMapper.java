@@ -1,6 +1,6 @@
 package com.api.invoicer.mapper.excel;
 
-import com.api.invoicer.model.excel.*;
+import com.api.invoicer.model.excelDto.*;
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import static com.api.invoicer.constant.ExcelConstant.CONFIG_MAP;
 import static com.api.invoicer.constant.ExcelConstant.EMPTY_STRING;
-import static com.api.invoicer.model.excel.ExcelEnum.*;
+import static com.api.invoicer.model.excelDto.ExcelEnum.*;
 import static com.api.invoicer.util.AddressUtil.getPostalCode;
 import static com.api.invoicer.util.DateUtil.getLocaleDate;
 import static com.api.invoicer.util.ExcelUtil.*;

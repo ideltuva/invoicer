@@ -17,6 +17,7 @@ import java.util.stream.IntStream;
 public class ExcelService {
 
     public Map<Integer, List<String>> getDataMap(String fileName) {
+        log.info("Entering the excel file: {}", fileName);
         Sheet sheet = readFromFirstSheet(Objects.requireNonNull(getExcelWorkbook(fileName)));
         Map<Integer, List<String>> data = new HashMap<>();
         if (Objects.isNull(sheet)) return data;
@@ -43,10 +44,12 @@ public class ExcelService {
 
     private static Workbook getExcelWorkbook(String fileName) {
         try {
+            log.info("Getting an excel workbook");
             FileInputStream file = new FileInputStream(ResourceUtils.getFile("classpath:" + fileName));
+            log.info("Excel accessed");
             return new XSSFWorkbook(file);
         } catch(IOException e) {
-            log.error("Error processing file: {}, {}", fileName, e.getMessage());
+            log.error("Error processing the file: {}, {}", fileName, e.getMessage());
         }
         return null;
     }

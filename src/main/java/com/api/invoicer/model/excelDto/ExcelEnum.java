@@ -1,4 +1,4 @@
-package com.api.invoicer.model.excel;
+package com.api.invoicer.model.excelDto;
 
 public enum ExcelEnum {
     SERIAL,
