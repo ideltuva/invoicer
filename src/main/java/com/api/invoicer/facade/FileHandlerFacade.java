@@ -39,7 +39,7 @@ public class FileHandlerFacade {
             Invoice excelInvoice = mapToExcelInvoice(excelDataMap);
             InvoiceType invoiceObl = mapToObl(excelInvoice);
             convertService.generateObl21(invoiceObl, trimFileSuffix(fileName));
-            log.info("{}.xml generated: {}, ", fileName, getUUID(invoiceObl));
+            log.info("{}.xml generated: {}", fileName, getUUID(invoiceObl));
         });
     }
 
