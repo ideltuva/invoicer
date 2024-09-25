@@ -166,7 +166,7 @@ public class OblMapper {
 
     private static TaxableAmountType getTaxableAmount(Total total, String currencyId) {
         final String amount = Optional.of(total)
-                .map(Total::sum)
+                .map(Total::price)
                 .map(Price::value)
                 .orElse("0");
 
@@ -185,12 +185,6 @@ public class OblMapper {
         taxAmountType.setCurrencyID(currencyId);
         taxAmountType.setValue(BigDecimal.valueOf(Double.parseDouble(amount)));
         return taxAmountType;
-    }
-
-    private static PaymentTermsType getPaymentTerms(NoteType noteType) {
-        PaymentTermsType paymentTermsType = new PaymentTermsType();
-        paymentTermsType.setNote(List.of(noteType));
-        return paymentTermsType;
     }
 
     private static PaymentMeansType getPaymentMeansType(Invoice excelInvoice) {
@@ -309,7 +303,7 @@ public class OblMapper {
 
     private static TaxSchemeType getTaxSchemeType() {
         TaxSchemeType taxSchemeType = new TaxSchemeType();
-        taxSchemeType.setID(new IDType(VAT));
+        taxSchemeType.setID(VAT);
         return taxSchemeType;
     }
 
@@ -331,7 +325,6 @@ public class OblMapper {
         address.setStreetName(streetName);
         address.setCityName(cityName);
         address.setPostalZone(postalCode);
-        address.setCountrySubentity(COUNTRY_SUBENTITY);
         address.setCountry(getCountryType());
         return address;
     }
@@ -417,9 +410,7 @@ public class OblMapper {
     private static PartyTaxSchemeType getPartyTaxSchemeType(SellerInfo supplier) {
         PartyTaxSchemeType partyTaxSchemeType = new PartyTaxSchemeType();
         partyTaxSchemeType.setCompanyID(getSupplierCompanyIDType(supplier));
-        TaxSchemeType taxSchemeType = new TaxSchemeType();
-        taxSchemeType.setID(VAT);
-        partyTaxSchemeType.setTaxScheme(taxSchemeType);
+        partyTaxSchemeType.setTaxScheme(getTaxSchemeType());
         return partyTaxSchemeType;
     }
 
