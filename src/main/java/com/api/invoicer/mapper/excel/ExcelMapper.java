@@ -122,7 +122,7 @@ public class ExcelMapper {
             log.error("Unable to parse the date: ", e);
         }
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        return getLocaleDate(dateFormatter.format(date));
+        return Objects.isNull(getLocaleDate(dateFormatter.format(date))) ? LocalDate.now() : getLocaleDate(dateFormatter.format(date));
     }
 
     private static String mapToRemarks(final Map<Integer, List<String>> excelMap) {
@@ -130,7 +130,9 @@ public class ExcelMapper {
     }
 
     private static LocalDate mapToDueDate(final Map<Integer, List<String>> excelMap) {
-        return getLocaleDate(excelMap.get(getDueDatePosition(excelMap)).get(5));
+        return Objects.isNull(getLocaleDate(excelMap.get(getDueDatePosition(excelMap)).get(5))) ?
+                LocalDate.now() :
+                getLocaleDate(excelMap.get(getDueDatePosition(excelMap)).get(5));
     }
 
     public static Invoice mapToExcelInvoice(Map<Integer, List<String>> excelMap) {
