@@ -1,6 +1,7 @@
 package com.api.invoicer.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
@@ -25,15 +26,26 @@ public class ExcelService {
         IntStream.range(0, sheet.getLastRowNum())
                 .forEach(i -> {
                     data.put(i, new ArrayList<>());
-                    sheet.getRow(i).forEach(cell -> {
-                        switch (cell.getCellType()) {
-                            case STRING: data.get(i).add(cell.getRichStringCellValue().getString()); break;
-                            case NUMERIC: data.get(i).add(getFromNumericValue(cell)); break;
-                            case BOOLEAN: data.get(i).add(cell.getBooleanCellValue() + ""); break;
-                            case FORMULA: data.get(i).add(getValueFromFormula(cell)); break;
-                            default: data.get(i).add(" ");
-                        }
-                    });
+                    Optional.ofNullable(sheet.getRow(i))
+                            .ifPresent(rowCell ->
+                                    rowCell.forEach(cell -> {
+                                        switch (cell.getCellType()) {
+                                            case STRING:
+                                                data.get(i).add(cell.getRichStringCellValue().getString());
+                                                break;
+                                            case NUMERIC:
+                                                data.get(i).add(getFromNumericValue(cell));
+                                                break;
+                                            case BOOLEAN:
+                                                data.get(i).add(cell.getBooleanCellValue() + "");
+                                                break;
+                                            case FORMULA:
+                                                data.get(i).add(getValueFromFormula(cell));
+                                                break;
+                                            default:
+                                                data.get(i).add(" ");
+                                        }
+                                    }));
                 });
         return data;
     }
@@ -48,14 +60,14 @@ public class ExcelService {
             FileInputStream file = new FileInputStream(fileName);
             log.info("Excel accessed");
             return new XSSFWorkbook(file);
-        } catch(IOException e) {
+        } catch (IOException e) {
             log.error("Error processing the file: {}, {}", fileName, e.getMessage());
         }
         return null;
     }
 
     private static String getFromNumericValue(Cell cell) {
-        if(DateUtil.isCellDateFormatted(cell)) {
+        if (DateUtil.isCellDateFormatted(cell)) {
             SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-d");
             return dateFormatter.format(cell.getDateCellValue());
         }
