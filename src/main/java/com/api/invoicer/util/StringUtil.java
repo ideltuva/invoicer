@@ -5,7 +5,8 @@ import lombok.experimental.UtilityClass;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.api.invoicer.constant.FileConstant.EXCEL_SUFFIX;
+import static com.api.invoicer.constant.FileConstant.EXCEL_SUFFIX_XLSM;
+import static com.api.invoicer.constant.FileConstant.EXCEL_SUFFIX_XLSX;
 
 @UtilityClass
 public class StringUtil {
@@ -23,6 +24,11 @@ public class StringUtil {
     }
 
     public static String trimFileSuffix(String fileName) {
-        return fileName.replace(EXCEL_SUFFIX, "");
+        return endsWithXlsx(fileName) ? fileName.replace(EXCEL_SUFFIX_XLSX, "") :
+                fileName.replace(EXCEL_SUFFIX_XLSM, "");
+    }
+
+    private static boolean endsWithXlsx(String fileName) {
+        return fileName.endsWith(EXCEL_SUFFIX_XLSX);
     }
 }
