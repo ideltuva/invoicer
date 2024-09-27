@@ -111,18 +111,7 @@ public class ExcelMapper {
 
     private static LocalDate mapToCreatedDate(final Map<Integer, List<String>> excelMap) {
         String created = excelMap.get(CONFIG_MAP.get(CREATED)).get(0);
-        Locale locale = new Locale.Builder()
-                .setLanguage("lt")
-                .setRegion("LT")
-                .build();
-        DateFormat dateFormat = new SimpleDateFormat("y 'm'. MMMM d 'd'.", locale);
-        Date date = new Date();
-        try { date = dateFormat.parse(created); }
-        catch(Exception e) {
-            log.error("Unable to parse the date: ", e);
-        }
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        return Objects.isNull(getLocaleDate(dateFormatter.format(date))) ? LocalDate.now() : getLocaleDate(dateFormatter.format(date));
+        return Objects.isNull(getLocaleDate(created)) ? LocalDate.now() : getLocaleDate(created);
     }
 
     private static String mapToRemarks(final Map<Integer, List<String>> excelMap) {
