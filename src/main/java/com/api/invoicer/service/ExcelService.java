@@ -69,12 +69,12 @@ public class ExcelService {
             SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-d");
             return dateFormatter.format(cell.getDateCellValue());
         }
-        DataFormatter dataFormatter = new DataFormatter();
+        DataFormatter dataFormatter = new DataFormatter(Locale.ENGLISH);
         return dataFormatter.formatCellValue(cell);
     }
 
     private static String getValueFromFormula(Cell cell) {
-        DataFormatter dataFormatter = new DataFormatter();
+        DataFormatter dataFormatter = new DataFormatter(Locale.ENGLISH);
         dataFormatter.setUseCachedValuesForFormulaCells(true);
         return dataFormatter.formatCellValue(cell);
     }
