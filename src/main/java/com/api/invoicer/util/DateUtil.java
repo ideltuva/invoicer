@@ -31,7 +31,6 @@ public class DateUtil {
         if (dateWithDashes(date)) return LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_DASHES_FORMAT));
         log.error("Please check the date format, it does not follow any pattern: {}", date);
         return null;
-
     }
 
     public static boolean dateWithSlashes(String date) {
@@ -88,5 +87,4 @@ public class DateUtil {
         catch (Exception ignored) { }
         return null;
     }
-
 }
