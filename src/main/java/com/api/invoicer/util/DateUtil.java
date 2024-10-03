@@ -46,7 +46,7 @@ public class DateUtil {
     }
 
 
-    private static boolean isValidLithuanianDateFormat(String value) {
+    public static boolean isValidLithuanianDateFormat(String value) {
         LocalDateTime ldt;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(LITHUANIAN_DATE_FORMAT, getLithuanianLocale());
         try {

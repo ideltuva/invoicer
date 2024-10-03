@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import static com.api.invoicer.constant.FileConstant.FILE_PATH;
+
 @Slf4j
 @Component
 public class CommandLineAppStartupRunner implements CommandLineRunner {
@@ -17,6 +19,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        fileHandlerFacade.handleFiles();
+        fileHandlerFacade.handleFiles(FILE_PATH);
     }
 }

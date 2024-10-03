@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 
-import static com.api.invoicer.constant.FileConstant.FOLDER_NAME;
+import static com.api.invoicer.constant.FileConstant.DIRECTORY_NAME;
 
 @Slf4j
 @Service
 public class ConvertService {
 
-    public void generateObl21(InvoiceType invoice, String fileName) {
+    public void generateObl21(String pathToFile, InvoiceType invoice, String fileName) {
         log.info("Generating an xml file for the excel: {}", fileName);
         UBL21Marshaller.invoice()
-                .write(invoice, new File(String.format("%s/%s.xml", FOLDER_NAME, fileName)));
+                .write(invoice, new File(String.format("%s/%s/%s.xml", pathToFile, DIRECTORY_NAME, fileName)));
     }
 }

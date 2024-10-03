@@ -31,13 +31,15 @@ public class FileHandlerFacade {
         this.fileService = fileService;
     }
 
-    public void handleFiles() {
-        List<String> fileNames = fileService.getFileNames();
+    public void handleFiles(String filePath) {
+
+        List<String> fileNames = fileService.getFileNames(filePath);
         fileNames.forEach(fileName -> {
-            Map<Integer, List<String>> excelDataMap = excelService.getDataMap(fileName);
+            final String fileDestination = String.format("%s/%s", filePath, fileName);
+            Map<Integer, List<String>> excelDataMap = excelService.getDataMap(fileDestination);
             Invoice excelInvoice = mapToExcelInvoice(excelDataMap);
             InvoiceType invoiceObl = mapToObl(excelInvoice);
-            convertService.generateObl21(invoiceObl, trimFileSuffix(fileName));
+            convertService.generateObl21(filePath, invoiceObl, trimFileSuffix(fileName));
             log.info("{}.xml generated: {}", trimFileSuffix(fileName), getUUID(invoiceObl));
         });
     }

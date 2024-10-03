@@ -14,8 +14,9 @@ import static com.api.invoicer.constant.FileConstant.*;
 @Slf4j
 @Service
 public class FileService {
-    private final File currentDirectory = new File(FILE_PATH);
-    public List<String> getFileNames() {
+
+    public List<String> getFileNames(String filePath) {
+        final File currentDirectory = new File(filePath);
         File[] files = currentDirectory.listFiles((dir, name) -> name.endsWith(EXCEL_SUFFIX_XLSX) || name.endsWith(EXCEL_SUFFIX_XLSM));
         if (ArrayUtils.isNotEmpty(files)) return Arrays.stream(files).map(File::getName).collect(Collectors.toList());
         log.info("No files found in a current directory");
